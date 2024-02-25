@@ -21,6 +21,9 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
-  ]
+    "src",
+    "src/components/AuthForm/declaration.d.ts"
+, "webpack.config.js"  ]
+
+
 }

@@ -1,46 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import CreatePost from './components/pages/CreatePost/index';
+import { Provider } from 'react-redux';
+import store from './store';
+import AuthForm from './components/AuthForm/AuthForm';
 
 
 function App() {
-  const [state, setState] = useState(null);
-  const callBackendAPI = async () => {
-    const response = await fetch('/express_backend');
-    const body = await response.json();
-
-    if (response.status !== 200) {
-      throw Error(body.message)
-    }
-    return body;
-  };
   
-  // получение GET маршрута с сервера Express, который соответствует GET из server.js 
-  useEffect(() => {
-    callBackendAPI()
-    .then(res => setState(res.express))
-    .catch(err => console.log(err));
-  }, [])
+  
+ 
   return (
-    <div className="App">
-    <header className="App-header">
-     
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-
-    {/* вывод данных, полученных с сервера Express */}
-    <div>
-        {state}
-    </div>
-  </div>
+    <Provider store={store}>
+        <div className="App">
+        <CreatePost />
+        <AuthForm/>
+    
+      </div>
+    </Provider>
+    
   );
 }
 

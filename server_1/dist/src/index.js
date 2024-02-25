@@ -16,16 +16,27 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = require("dotenv");
 const db_1 = __importDefault(require("./db"));
 const routes_1 = __importDefault(require("../routes"));
+const models_1 = require("./models/models");
 (0, dotenv_1.configDotenv)();
 const app = (0, express_1.default)();
 const port = process.env.APP_PORT || 3001;
+app.use(express_1.default.json());
 app.use("/", routes_1.default);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
-    yield db_1.default.authenticate();
-    yield db_1.default.sync();
-    console.log("Всё работает");
-});
-app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+    try {
+        yield models_1.User.create({
+            id: Date.now(),
+            name: "Ïvan",
+            cname: "N",
+        });
+        yield db_1.default.authenticate();
+        //await sequelize.sync()
+        app.listen(port, () => {
+            console.log(`[server]: Server is running at http://localhost:${port}`);
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
 });
 start();
