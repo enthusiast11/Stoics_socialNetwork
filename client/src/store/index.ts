@@ -1,36 +1,35 @@
 
-import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
-import authReducer from "../components/pages/Login/Form/Slice"
-import createPostReducer from "../components/pages/CreatePost/Form/Slice"
-import createMeetReducer from "../components/pages/CreateMeet/Form/CreateMeetSlice"
-import settingsReducer from "../components/pages/Settings/SettingsSlice"
-import chatReducer from "../components/pages/Chat/Form/ChatSlice"
-import profileReducer from "../components/pages/User/UpBar/Slice"
-import postListReducer from "../components/pages/PostList/Slice"
-import  {thunk}  from "redux-thunk";
+import { configureStore} from "@reduxjs/toolkit";
+import chatReducer from "./slices/chat";
+import postReducer from "./slices/post";
+import createMeetReducer from "./slices/meet"
+import userPostsReducer from "./slices/userPosts";
+import settingsReducer from "./slices/settings";
+import loginReducer from "./slices/login";
+import postListReducer from "./slices/postList";
+import bookmarksReducer from "./slices/bookmarks";
+import profileReducer from "./slices/profile";
 
 
+import { authApi } from "../components/elements/AuthForm/api/rtk_query/auth";
+import { loginApi } from "../components/elements/LoginForm/login";
 
-// const fetchData = createAsyncThunk('data/fetchData', async () => {
-//     const response = await fetch('https://api.example.com/data');
-//     const data = await response.json();
-//     return data;
-//   });
+
 
 let store = configureStore({
     reducer: {
-        auth: authReducer,
-        createPost: createPostReducer,
+        post: postReducer,
         createMeet: createMeetReducer,
         settings: settingsReducer,
         chat: chatReducer,
         profile: profileReducer,
-        postList: postListReducer
-
-
+        postList: postListReducer,
+        [authApi.reducerPath]: authApi.reducer,
+        [loginApi.reducerPath]: loginApi.reducer
     },
-    //middleware: [thunk] as any, 
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware().concat(authApi.middleware, loginApi.middleware)
+    }, 
 
 })
-//store.dispatch(fetchData());
 export default store

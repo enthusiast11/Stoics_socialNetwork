@@ -11,6 +11,9 @@ module.exports = {
             modules: true // Активация CSS Modules
           }
         }],
+        devServer: {
+          historyApiFallback: true
+        }
       },
     ],
   },

@@ -1,7 +1,7 @@
 //@ts-ignore
 import React from 'react'
 import { useState } from 'react'
-import { addHeader, addMain } from './Form/Slice'
+import { addHeader, addMain } from '../../../store/slices/post'
 import { UseSelector, useDispatch, useSelector } from 'react-redux'
 
 const CreatePost = () => {
