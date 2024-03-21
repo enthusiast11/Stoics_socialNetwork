@@ -15,4 +15,5 @@ const db = new Sequelize(
     }
     
 )
-export default db
+
+export default db;

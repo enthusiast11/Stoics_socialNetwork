@@ -8,8 +8,26 @@ export const User = sequelize.define("user", {
       primaryKey: true,
       allowNull: false
     },
-  name: DataTypes.STRING,
-  cname: DataTypes.STRING,
+  name: {
+    type:DataTypes.STRING,
+    defaultValue: ''
+  },
+  avatar: {
+    type:DataTypes.BLOB('long'),
+    defaultValue: null
+  },
+  location: {
+    type:DataTypes.STRING,
+    defaultValue: ''
+  },
+  quote: {
+    type:DataTypes.STRING,
+    defaultValue: ''
+  },
+  about: {
+    type:DataTypes.STRING,
+    defaultValue: ''
+  },
   email: DataTypes.STRING,
   password: DataTypes.STRING,
   role: DataTypes.STRING
@@ -23,7 +41,10 @@ export const Post = sequelize.define("post", {
       primaryKey: true,
       allowNull: false
     },
-  //photo
+  photo: {
+    type:DataTypes.BLOB('long'),
+    defaultValue: null
+  },
   releaseData: DataTypes.STRING,
   header: DataTypes.STRING,
   mainText: DataTypes.STRING,
@@ -51,7 +72,10 @@ export const Message = sequelize.define("message", {
       primaryKey: true,
       allowNull: false
     },
-  //avatar
+  avatar: {
+    type:DataTypes.BLOB('long'),
+    defaultValue: null
+  },
   text: DataTypes.STRING,
   session: DataTypes.STRING,
   file: DataTypes.STRING || undefined,
@@ -106,7 +130,10 @@ export const Comment = sequelize.define("comment", {
     type: DataTypes.STRING,
     allowNull: false
     } || undefined,
-  //avatar;
+  avatar: {
+    type:DataTypes.BLOB('long'),
+    defaultValue: null
+  },
 });
 
 export const UserRole = sequelize.define("UsersRole", {

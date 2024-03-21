@@ -12,12 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.joinController = void 0;
+exports.authController = void 0;
 const express_validator_1 = require("express-validator");
 const models_1 = require("../models/models");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const joinController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const authController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, cname, email, password } = req.body;
         const error = (0, express_validator_1.validationResult)(req);
@@ -32,9 +32,10 @@ const joinController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         const hashPassword = yield getCrypto(10, password);
         const findUser = yield models_1.User.findOne({ where: { email: req.body.email } });
         if (!findUser) {
+            const id = Date.now();
             try {
                 yield models_1.User.create({
-                    id: Date.now(),
+                    id: id,
                     name: name,
                     cname: cname,
                     email: email,
@@ -44,23 +45,31 @@ const joinController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
                     name: req.body.name,
                     email: req.body.email
                 };
-                const accessToken = jsonwebtoken_1.default.sign(claim, "secret", {
+                const accessToken = jsonwebtoken_1.default.sign(claim, 'secret', {
                     expiresIn: "2d"
                 });
-                // access token нужно где-то хранить
-                res.status(200).send(req.body);
+                req.body.id = id;
+                res.status(200).json(req.body);
             }
             catch (error) {
-                res.status(500).send('Ошибка при создании пользователя: ');
+                res.status(500).json({
+                    message: 'Ошибка при создании пользователя',
+                });
             }
+            ;
         }
         else {
-            res.status(409).send('Пользователь с таким email уже существует');
+            res.status(409).json({
+                message: 'Пользователь с таким email уже существует',
+            });
         }
+        ;
     }
     catch (e) {
-        console.log(e);
-        res.status(500).send(e);
+        res.status(500).json({
+            error: e,
+        });
     }
+    ;
 });
-exports.joinController = joinController;
+exports.authController = authController;

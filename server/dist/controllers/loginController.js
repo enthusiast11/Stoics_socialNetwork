@@ -13,31 +13,47 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginController = void 0;
-const models_1 = require("../models/models");
+const express_validator_1 = require("express-validator");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const models_1 = require("../models/models");
 const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, cname, email } = req.body;
+        ;
+        const { name, email, password } = req.body;
         const user = yield models_1.User.findOne({ where: { email: email } });
         if (!user) {
-            return res.status(404).send("пользователь не найден");
+            return res.status(404).send('пользователь не найден');
         }
+        ;
+        const error = (0, express_validator_1.validationResult)(req);
+        if (!error.isEmpty()) {
+            return res.status(400).json({ errors: error.array() });
+        }
+        ;
         const claim = {
             name: name,
-            email: email
+            email: email,
         };
-        const loginPassword = yield bcrypt_1.default.compare(req.body.password, user.dataValues.password);
+        const loginPassword = yield bcrypt_1.default.compare(password, user.dataValues.password);
         if (!loginPassword) {
-            return res.status(404).send("пользователь не найден");
+            res.status(500).json({
+                message: 'Пользователь не найден',
+            });
         }
-        const accessToken = yield jsonwebtoken_1.default.sign(claim, "secret", {
-            expiresIn: "2d"
+        ;
+        const accessToken = jsonwebtoken_1.default.sign(claim, 'secret', {
+            expiresIn: '2d',
         });
-        res.status(200).send("Успешно");
+        res.status(200).json({
+            message: 'Успешно',
+        });
     }
     catch (e) {
-        res.status(500).send(e);
+        res.status(500).json({
+            error: e,
+        });
     }
+    ;
 });
 exports.loginController = loginController;

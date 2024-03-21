@@ -13,8 +13,26 @@ exports.User = db_1.default.define("user", {
         primaryKey: true,
         allowNull: false
     },
-    name: sequelize_1.DataTypes.STRING,
-    cname: sequelize_1.DataTypes.STRING,
+    name: {
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: ''
+    },
+    avatar: {
+        type: sequelize_1.DataTypes.BLOB('long'),
+        defaultValue: null
+    },
+    location: {
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: ''
+    },
+    quote: {
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: ''
+    },
+    about: {
+        type: sequelize_1.DataTypes.STRING,
+        defaultValue: ''
+    },
     email: sequelize_1.DataTypes.STRING,
     password: sequelize_1.DataTypes.STRING,
     role: sequelize_1.DataTypes.STRING
@@ -26,7 +44,10 @@ exports.Post = db_1.default.define("post", {
         primaryKey: true,
         allowNull: false
     },
-    //photo
+    photo: {
+        type: sequelize_1.DataTypes.BLOB('long'),
+        defaultValue: null
+    },
     releaseData: sequelize_1.DataTypes.STRING,
     header: sequelize_1.DataTypes.STRING,
     mainText: sequelize_1.DataTypes.STRING,
@@ -52,7 +73,10 @@ exports.Message = db_1.default.define("message", {
         primaryKey: true,
         allowNull: false
     },
-    //avatar
+    avatar: {
+        type: sequelize_1.DataTypes.BLOB('long'),
+        defaultValue: null
+    },
     text: sequelize_1.DataTypes.STRING,
     session: sequelize_1.DataTypes.STRING,
     file: sequelize_1.DataTypes.STRING || undefined,
@@ -103,7 +127,10 @@ exports.Comment = db_1.default.define("comment", {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false
     } || undefined,
-    //avatar
+    avatar: {
+        type: sequelize_1.DataTypes.BLOB('long'),
+        defaultValue: null
+    },
 });
 exports.UserRole = db_1.default.define("UsersRole", {
     id: {

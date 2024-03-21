@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { createApi } from "@reduxjs/toolkit/dist/query/react";
+
 const profile = createSlice({
     name: 'Profile',
     initialState: {
@@ -12,3 +14,9 @@ const profile = createSlice({
 export const {} = profile.actions
 
 export default profile.reducer
+
+// const profileApi = createApi({
+//     reducerPath: 'profile',
+    
+
+// })

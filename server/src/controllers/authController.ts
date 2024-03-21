@@ -3,11 +3,12 @@ import {Request, Response, NextFunction } from "express";
 import { User } from "../models/models";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
-export const joinController = async (req: Request, res: Response, next: NextFunction) => {
+export const authController = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const {name, cname, email, password} = req.body
     const error = validationResult(req)
     if (!error.isEmpty()) {
+      
       return res.status(400).json({ errors: error.array() });
     }
     
@@ -21,9 +22,10 @@ export const joinController = async (req: Request, res: Response, next: NextFunc
     const findUser = await User.findOne({where:{email: req.body.email}})
 
     if (!findUser) {
+      const id = Date.now()
       try {
           await User.create({
-              id: Date.now(),
+              id: id,
               name: name,
               cname: cname,
               email: email,
@@ -34,10 +36,12 @@ export const joinController = async (req: Request, res: Response, next: NextFunc
             name: req.body.name as string,
             email: req.body.email as string
           };
-
+          
           const accessToken = jwt.sign(claim, 'secret', {
             expiresIn: "2d"
           });
+
+          req.body.id = id
           res.status(200).json(req.body);
       } catch (error) {
           res.status(500).json({
