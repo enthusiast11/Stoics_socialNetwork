@@ -51,7 +51,7 @@ const Edit = () => {
       const handleButtonClick = () => {
         const fileInput = document.getElementById('input');
         if (fileInput) {
-            fileInput.click(); // Вызываем метод click() на элементе input
+            fileInput.click();
         }
     };
   return (

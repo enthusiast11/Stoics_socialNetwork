@@ -11,13 +11,32 @@
     src: url('./fonts/Inter-SemiBold.ttf') format('truetype');
 }
 
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
 input[type=text] {
     font-size: 24px;
 }
+
 .main {
-    width: 50%;
-    text-align: left;
+    padding: 10px;
     margin: auto;
+    width: auto;
+    background-color: rgba(245, 235, 229, 1);
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+}
+
+.main form {
+    margin:  auto;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
 }
 
 input[type=text] {
@@ -25,7 +44,7 @@ input[type=text] {
 }
 .background {
     text-align: center;
-    width: 630px;
+    width: 830px;
     background-color: rgba(245, 235, 229, 1);
     padding: 20px;
     display: block;
@@ -61,6 +80,12 @@ input[type=text] {
     font-family: "Inter", sans-serif, Fallback;
 
 }
+.down {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
 .link {
     font-family: "Inter_semiBold", sans-serif, Fallback;
     text-decoration: none;
@@ -71,11 +96,7 @@ input[type=text] {
     font-size: 20px;
     padding-left: 10px;
 }
-.down {
-    text-align: 'center';
-    display: "flex";
-    justify-content: 'center'
-}
+
 .down_text {
     font-size: 20px;
     font-family: "Inter_regular", sans-serif, Fallback;
@@ -91,4 +112,11 @@ input[type=text] {
     display: inline-block;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+}
+.error {
+    margin-top: 10px;
+    align-items:center;
+    font-family: "Inter_semiBold", sans-serif, Fallback;
+    text-decoration: none;
+    color: rgba(23, 23, 24, 0.6); 
 }

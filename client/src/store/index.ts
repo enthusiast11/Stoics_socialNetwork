@@ -13,7 +13,7 @@ import profileReducer from "./slices/profile";
 import authReducer from "./slices/auth"
 
 import { authApi } from "../components/modules/AuthForm/api/rtk_query/auth";
-import { loginApi } from "../components/pages/Login/LoginForm/login";
+import { loginApi } from "../components/pages/Login/Form/login";
 import { editApi } from "./slices/edit";
 
 

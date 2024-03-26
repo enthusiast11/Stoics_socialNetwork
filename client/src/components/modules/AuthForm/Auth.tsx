@@ -9,7 +9,9 @@ import { UseSelector } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 
-
+export interface ErrorData {
+  errors: { msg: string }[];
+}
 const AuthForm = () => {
 
   const [name, setName] = useState<string | null>()
@@ -48,29 +50,29 @@ const AuthForm = () => {
   }
  
   return (
-    <div className={styles.main}>
+    <div className={styles.container}>
+      <div className={styles.main}>
         <form action="/auth" className={styles.background}>  
-          <div>
-            <label htmlFor="username" className={styles.subscruption}>Введите Имя</label>
-            <input type="text" size={111} value={name!} onChange={e => setName(e.currentTarget.value)} className={styles.input} name="username" id="username" /> 
+            <div className={styles.subscruption}>Введите Имя</div>
+            <div><input type="text" size={111} value={name!} onChange={e => setName(e.currentTarget.value)} className={styles.input} name="username" id="username" /></div> 
             
-            <label htmlFor="email" className={styles.subscruption}>Введите почту</label>
-            <input type="text" value={email!} onChange={e => setEmail(e.currentTarget.value)} className={styles.input}  name="email" id="email" />
+            <div className={styles.subscruption}>Введите почту</div>
+            <div><input type="text" value={email!} onChange={e => setEmail(e.currentTarget.value)} className={styles.input}  name="email" id="email" /></div>
 
-            <label htmlFor="password" className={styles.subscruption}>Придумайте пароль</label>
-            <input type="text" value={password!} onChange={e => setPassword(e.currentTarget.value)}  className={styles.input} name="password" id="password" />
+            <div className={styles.subscruption}>Придумайте пароль</div>
+            <div><input type="text" value={password!} onChange={e => setPassword(e.currentTarget.value)}  className={styles.input} name="password" id="password" /></div>
             
-            <label htmlFor="password" className={styles.subscruption}>Повторите пароль</label>
-            <input type="text" value={repassword!} onChange={e => setRepassword(e.currentTarget.value)}  className={styles.input}  name="repassword" id="repassword" />
-          </div>
+            <div className={styles.subscruption}>Повторите пароль</div>
+            <div><input type="text" value={repassword!} onChange={e => setRepassword(e.currentTarget.value)}  className={styles.input}  name="repassword" id="repassword" /></div>
 
          { isLoading? <span className={styles.loader}></span> : <button className={styles.button} onClick={e=> sendData(e)}>Отправить</button>}
-         {isError ? <p></p> : ''}
+         {isError && error && 'data' in error ? <div className={styles.error}>{JSON.stringify((error!.data as ErrorData).errors.map(item =>' ' + item.msg)).replace(/['"\[\]]/g, '')}</div> :  ''}
           <div className={styles.down}>
             <div className={styles.down_text}>Уже есть аккаунт?</div>
             <div onClick={()=> navigate('/login')} className={styles.link}>Войти</div>
           </div>
         </form>
+      </div>
     </div>
   )
 }
