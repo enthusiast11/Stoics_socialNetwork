@@ -8,6 +8,7 @@ const profile = createSlice({
         value: 0
     },
     reducers: {
+       
 
     }
 })

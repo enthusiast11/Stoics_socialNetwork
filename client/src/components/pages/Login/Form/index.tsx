@@ -13,6 +13,8 @@ const Form = () => {
 
   const navigate = useNavigate()
   const userId = useSelector((state: RootState) => state.auth.userId)
+  console.log(userId);
+  
 
   const [loginUser, {isLoading, isError, error}] = useLoginUserMutation()
 
@@ -21,11 +23,10 @@ const Form = () => {
     try {
 
       e.preventDefault();
-      const data = await loginUser({ email, password,}).unwrap() 
-      console.log(data);
+      await loginUser({ email, password,}).unwrap() 
       
-      // setEmail('')
-      // setPassword('')
+      setEmail('')
+      setPassword('')
       console.log('Данные успешно отправлены')
       navigate(`/${userId}`)
 

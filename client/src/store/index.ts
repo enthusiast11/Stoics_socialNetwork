@@ -15,6 +15,7 @@ import authReducer from "./slices/auth"
 import { authApi } from "../components/modules/AuthForm/api/rtk_query/auth";
 import { loginApi } from "../components/pages/Login/Form/login";
 import { editApi } from "./slices/edit";
+import { profileApi } from "../components/pages/User/Profile/index";
 
 
 
@@ -25,14 +26,15 @@ let store = configureStore({
         createMeet: createMeetReducer,
         settings: settingsReducer,
         chat: chatReducer,
-        profile: profileReducer,
+        // profile: profileReducer,
         postList: postListReducer,
         [authApi.reducerPath]: authApi.reducer,
         [loginApi.reducerPath]: loginApi.reducer,
         [editApi.reducerPath]: editApi.reducer,
+        [profileApi.reducerPath]: profileApi.reducer,
     },
     middleware: (getDefaultMiddleware) => {
-        return getDefaultMiddleware().concat(authApi.middleware, loginApi.middleware, editApi.middleware)
+        return getDefaultMiddleware().concat(authApi.middleware, loginApi.middleware, editApi.middleware, profileApi.middleware)
     }, 
 
 })

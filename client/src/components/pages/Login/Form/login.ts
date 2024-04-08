@@ -27,7 +27,7 @@ interface AuthResponse extends Response {
                 body: user,
             }),
             transformResponse:  (response: Response, meta, ) => {
-                const authTokenHeader =  response!.headers.get('Authorization')
+                const authTokenHeader =  meta!.response!.headers.get('Authorization')
                 console.log(authTokenHeader);
                 
                 return { authToken: authTokenHeader || ''};

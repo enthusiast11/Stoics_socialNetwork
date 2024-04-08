@@ -16,13 +16,14 @@ import AuthPage from './components/pages/Auth/AuthPage';
 function App() {
   
   const userId = useSelector((state: RootState) => state.auth.userId)
+  console.log(userId);
  
   return (
     <Provider store={store}>
     <div>
         <Routes>
         <Route  path={`/${userId}`} element={<Profile/>} />
-        <Route  path="/edit" element={<Edit/>} />
+        <Route  path={`/${userId}/edit`} element={<Edit/>} />
         <Route  path="/login" element={<LoginPage/>} />
         <Route  path="/auth" element={<AuthPage/>} />
         <Route  path="/" element={<StartPage/>} />
