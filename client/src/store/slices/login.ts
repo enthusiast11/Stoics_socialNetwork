@@ -1,14 +1,39 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { log } from 'console';
 
-const login = createSlice({
-    name: 'Auth',
-    initialState: {
-        value: 0
-    },
-    reducers: {
+interface IUser {
+    email: string;
+    password: string;
+}
 
-    }
-})
-export const {} = login.actions
+interface IloginResponse {
+    authToken: string
+}
 
-export default login.reducer
+interface AuthResponse extends Response {
+    authToken: string;
+    data: IUser; 
+  }
+
+  export const loginApi = createApi({
+    reducerPath: 'login',
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
+    endpoints: (builder) => ({
+        loginUser: builder.mutation<IloginResponse, IUser>({
+            query: (user) => ({
+                
+                url: '/login',
+                method: 'POST',
+                body: user,
+            }),
+            transformResponse:  (response: Response, meta, ) => {
+                const authTokenHeader =  meta!.response!.headers.get('Authorization')
+                console.log(authTokenHeader);
+                
+                return { authToken: authTokenHeader || ''};
+            },
+        }),
+    }),
+});
+
+export const { useLoginUserMutation } = loginApi;

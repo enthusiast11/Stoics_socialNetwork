@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react'
-import { Buffer } from 'buffer'
 
-import styles from '../Profile/style.module.css'
+import styles from '../Profile/profile.module.css'
 import { useNavigate } from 'react-router'
-import { useGetDataQuery } from '.'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../../store'
+import { useGetDataQuery } from '../../../../store/slices/user'
 
 const Profile = () => {
-    const userId = useSelector((state: RootState) => state.auth.userId)
+
+
+    const userId = localStorage.getItem('userId')
     
     const  { data , isLoading, isError, refetch } = useGetDataQuery(userId);
     useEffect(()=>{
         refetch()
-    },[])
+    },[data])
 
     
     const [activeTab, setActiveTab] = useState<string>('profile')
+    const name = data?.user?.name;
     const location = data?.user?.location;
     const subscriptions = data?.subs?.length;
-    const subscribers = data?.subscribers;
+    const subscribers = data?.subs.subscribers;
+    const about = data?.user.about;
+    const quote = data?.user.quote;
    
     const navigate = useNavigate()
 
@@ -39,7 +41,7 @@ const Profile = () => {
                         <div className={styles.margin}>
                             <div className={styles.person}>
                                 <img src={data.user.avatar ? `/profile/${userId}/${data.user.avatar}`:'stok.jpeg'}  alt=""  className={styles.photo} />
-                                <div className={styles.info}>{data?.user?.name}</div>
+                                <div className={styles.info}>{name}</div>
                                 <div className={styles.subcribtion}>{location}</div>
                             </div>
                             <div className={styles.socials}>
@@ -81,11 +83,11 @@ const Profile = () => {
                             <div className={styles.description_text}>
                                 <div className={styles.description_card}>
                                     <div className={styles.description_header}>Обо мне</div>
-                                    <div className={styles.description_main}>{data?.user?.about}</div>
+                                    <div className={styles.description_main}>{about}</div>
                                 </div>
                                 <div className={styles.description_card}>
                                     <div className={styles.description_header}>Любимая цитата</div>
-                                    <div className={styles.description_main}>{data?.user?.quote}</div>
+                                    <div className={styles.description_main}>{quote}</div>
                                 </div>
                             </div>
                             <div className={styles.profile_posts}>

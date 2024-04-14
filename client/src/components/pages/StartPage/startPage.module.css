@@ -1,0 +1,190 @@
+@font-face {
+    font-family: 'Domine_regular';
+    src: url('../../../../public/fonts/Domine-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cormorant';
+    src: url('../../../../public/fonts/CormorantUnicase-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('../../../../public/fonts/Inter-Medium.ttf') format('truetype');
+}
+
+
+body {
+    margin: 0;
+}
+
+section, header, footer {
+    padding: 2%;
+    margin: auto;
+    width: 70%;
+}
+
+
+.beige {
+   background-color: rgba(235, 221, 213, 1);
+}
+
+.black {
+    background-color:#000000
+}
+.main {
+    margin: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.margin {
+    margin-bottom: 5%;
+}
+
+header {
+    padding: 1%;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+    background-color:#000000
+
+
+}
+
+.logo {
+    font-family: 'Domine_regular';
+    font-size: 32px;
+    color: rgba(235, 221, 213, 1);
+}
+
+.button_auth {
+    max-width: 220px; 
+    height: auto;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 1px 1px 2px rgba(235, 221, 213, 1);
+    background-image: linear-gradient(to right, rgba(235, 221, 213, 1), rgba(23, 23, 24, 1));
+    font-family: 'Inter';
+    font-size: 1.2vw;
+    background-clip: padding-box; 
+    color: rgb(250, 246, 246);
+    cursor: pointer;
+}
+
+.seneka {
+    padding-top: 88px;
+    display: flex;
+}
+
+.seneka_text {
+    margin-bottom: 60px;
+    font-family: 'Cormorant';
+    font-size: 2.5vw; 
+    line-height: 4vw;
+    color: rgba(235, 221, 213, 1);
+
+}
+.seneka_img {
+    width: 50%;
+    height: 50%;
+}
+
+.devider {
+    margin-top: 2%;
+    display: flex;
+    border-color: rgba(235, 221, 213, 1);
+}
+
+
+.seneka_author {
+    margin-top: 2,5%;
+    display: flex;
+    justify-content: end;
+    font-size: 1.5vw; 
+    line-height: 2vw;
+    color: rgba(235, 221, 213, 1);
+}
+
+
+.black_bluer {
+    width: 200px;
+    height: 100px;
+    background-image: linear-gradient(to right,rgba(23, 23, 24, 0), rgba(23, 23, 24, 1));
+    rotate: -90;
+}
+
+.invite {
+    margin: auto;
+    padding: 10% 0;
+    background-color: rgba(235, 221, 213, 1);
+}
+
+.invite_symbol {
+    text-align: center;
+}
+
+.invite_devider {
+    margin-top: 20px;
+    border-color: rgba(88, 22, 22, 1);
+    text-align: center;
+    width: 50%;
+}
+
+.invite_text {
+    flex-basis: 30%;
+    margin: auto;
+    text-align: center;
+    margin-top: 10px;
+    font-family: 'Cormorant';
+    font-size: 2.5vw; 
+    line-height: 4vw;
+    width: 100%;
+    color: black;
+}
+
+/* .epictetus_img{
+    flex-basis: 70%;
+    max-width: 600px;
+} */
+/* .epictetus{
+    max-width: 600px;
+    width: 70%;
+} */
+
+.auth {
+    margin: auto;
+    padding: 4% 0;
+}
+
+.auth_form {
+    width: 40%;
+    margin: auto;
+}
+
+.bottomer {
+    margin: auto;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(235, 221, 213, 1);
+}
+
+.bottomer_ctext {
+    margin-top: 65px;
+    font-family: 'Domine_regular';
+    font-size: 20px;
+}
+
+.bottomer_contacts {
+    font-family: 'Domine_regular';
+    font-size: 32px;
+}
+
+.bottomer_text {
+    margin-top: 20px;
+    font-family: 'Domine_regular';
+    font-size: 20px; 
+}
+

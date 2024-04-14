@@ -1,16 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-      userId: 0
-    },
-    reducers: {
-      setIdUsers: (state, action) => {
-        state.userId = action.payload;
-      },
-    },
-  });
+export const authApi = createApi({
+    reducerPath: 'api',
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/' }),
+    endpoints: (builder) => ({
+        authUser: builder.mutation({
+            query(user) {
+                return {
+                    method: 'POST',
+                    url: '/auth',
+                    body: user
+                }
+                
+            }
+        }),
+        
+    })
+})
+export const {useAuthUserMutation} = authApi
 
-export const {setIdUsers} = authSlice.actions
-export default authSlice.reducer

@@ -1,0 +1,255 @@
+@font-face {
+    font-family: 'Domine_regular';
+    src: url('../../../../../public/fonts/Domine-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Cormorant';
+    src: url('../../../../../public/fonts/CormorantUnicase-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter';
+    src: url('../../../../../public/fonts/Inter-Medium.ttf') format('truetype');
+}
+button {
+    cursor: pointer;
+}
+.main {
+    padding: 10px;
+    margin: auto;
+    width: 80%;
+    box-sizing: border-box;
+}
+.margin{
+    margin: 10px
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: rgba(88, 22, 22, 1);
+    font-family: 'Inter_regular';
+    font-size: 64px;
+}
+
+.profile {
+    background-image: url('../../../../../public/Rectangle_8.png');
+    width: 100%;
+    border-radius: 14px; 
+}
+
+.person {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    border:2px solid  rgba(245, 235, 229, 1);
+}
+
+.info {
+    margin-top: 20px;
+    text-align: center;
+    font-family: 'Inter_semiBold';
+    font-size: 30px;
+    color: rgba(245, 235, 229, 1);
+}
+
+.subcribtion {
+    margin-top: 20px;
+    font-family: 'Inter'; 
+    font-size: 30px;
+    color: rgba(157, 157, 157, 1) ;
+}
+
+.socials {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 20px;
+}
+
+.social_data {
+    font-family: 'Inter_semiBold';
+    font-size: 40;
+    color: rgba(245, 235, 229, 1);
+}
+
+.navbar{
+    margin-bottom: 3px;
+    box-shadow: 1px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+    background-color: rgba(245, 235, 229, 1);
+    height: 120px;
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+}
+
+.navbar_items{
+    display: flex;
+}
+
+.navbar_item{
+    display: flex;
+    margin: auto;
+    margin-right: 20px;  
+}
+
+.selected {
+    color:  rgba(88, 22, 22, 1)
+}
+
+.item_text {
+    font-family: 'Inter';
+    font-size:  2vw;
+    color: rgba(23, 23, 24, 1);
+    border: none;
+    background-color: rgba(245, 235, 229, 1);
+}
+
+.item_img {
+    margin-right: 10px;
+}
+
+
+.profile_description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.description_text {
+    width: 100%;
+}
+
+.description_card {
+    margin-bottom: 3px;
+    padding: 10px;
+    background-color:  rgba(245, 235, 229, 1);
+    box-shadow: 4px 4px rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
+}
+
+.description_header {
+    margin-bottom: 10px;
+    font-family: 'Inter_semiBold';
+    font-size: 24px;
+}
+
+.description_main {
+    font-family: 'Inter_regular';
+    font-size: 24px;
+}
+
+.profile_posts{
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.styles_card {
+    width: 150px;
+    height: 100px;
+}
+
+.card_img {
+    border-radius: 10px;
+    width: 160px;
+    height: 100px;
+}
+
+.card_main {
+    margin-right: 20px;
+    padding-left: 10px;
+    width: 150px;
+    height: 150px;
+    background-color: rgba(245, 235, 229, 1);
+    box-shadow: 4px 4px 7px grey;
+    border-radius: 10px;   
+}
+
+.card_name {
+    font-family: 'Inter';
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.card_option {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.card_icon {
+    margin-right: 5px;
+}
+
+.card_text {
+    font-family: 'Inter_regular';
+    font-size: 24px;
+    color: rgba(124, 124, 124, 1);
+}
+
+
+.settings {
+   margin-top: 40px;
+}
+
+
+.select_button {
+    margin-top: 40px;
+    padding-left: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    width: 200px;
+    border-radius: 20px;
+    border: 1px solid black; 
+}
+
+.select_text {
+    font-family: 'Inter_regular';
+    font-size: 20px;
+}
+
+.select{
+    margin-top: 5px;
+    padding: 10px; 
+    background-color: rgba(245, 235, 229, 1);
+    box-shadow: 4px 4px 7px grey;
+    border-radius: 10px;
+    width: 30%;
+}
+
+.select_item {
+    font-family: 'Inter_regular';
+    font-size: 20px;
+}
+
+.devider {
+    border-color: rgba(235, 221, 213, 1);
+}
+
+.settings_selected {
+    font-family: 'Inter_semiBold';
+    font-size: 20px;
+}
+
+.button {
+    margin: auto;
+    margin-top: 40px;
+    text-align: center;
+    background-color: rgba(88, 22, 22, 1);
+    height: 40px;
+    width: 200px;
+    border-radius: 20px;
+    border: none;
+    color: rgba(245, 235, 229, 1);
+    font-family: 'Inter_regular';
+    font-size: 20px;
+}
+
