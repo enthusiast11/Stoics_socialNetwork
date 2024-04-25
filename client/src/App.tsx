@@ -12,21 +12,26 @@ import { useSelector } from 'react-redux';
 import AuthPage from './components/pages/Auth/Auth';
 import styles from './global.module.css'
 import Login from './components/pages/Login/Login'
+
+import PostList from './components/pages/PostList/PostList';
 function App() {
   
 
-  const userId = localStorage.getItem('userId');
+  const userId = useSelector((state: RootState) => state.userId.id);
+  console.log(userId);
+  
     
  
   return (
     <Provider store={store}>
     <div style={styles}>
         <Routes>
-        <Route  path={`/:${userId}`} element={<Profile/>} />
+        <Route  path="/" element={<StartPage/>} />
+        <Route path="/posts" element={<PostList/>} />
+        <Route  path={`/${userId}`} element={<Profile/>} />
         <Route  path={`/${userId}/edit`} element={<Edit/>} />
         <Route  path="/login" element={<Login/>} />
         <Route  path="/auth" element={<AuthPage/>} />
-        <Route  path="/" element={<StartPage/>} />
         
       </Routes>
 

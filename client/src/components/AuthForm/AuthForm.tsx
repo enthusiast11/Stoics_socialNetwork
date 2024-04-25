@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styles from "../AuthForm/auth.module.css"
 import { useAuthUserMutation } from '../../store/slices/auth';
 import { useNavigate } from 'react-router-dom';
+import { setIdUsers } from '../../store/slices/userId';
 
 
 export interface ErrorData {
@@ -14,21 +16,19 @@ const AuthForm = () => {
   const [password, setPassword] = useState<string| null>()
   const [repassword, setRepassword] = useState<string | null>()
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [authUser, {isLoading, isError, error,}] = useAuthUserMutation()
   const sendData =async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     try {
       e.preventDefault();
-      console.log(name, email, password, repassword);
+      console.log(name, email, password, repassword, error);
 
     
      const test = await authUser({name, email, password, repassword}).unwrap()
-      localStorage.setItem('userId',test.id)
-      console.log(test.id);
-      
-      
      
-     
+      dispatch(setIdUsers(test.id))
+ 
         // setName('')
         // setCname('')
         // setEmail('')

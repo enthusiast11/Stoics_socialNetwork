@@ -1,0 +1,51 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('../../../../../public/fonts/Inter-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'Inter_light';
+    src: url('../../../../../public/fonts/Inter-Light.ttf') format('truetype');
+}
+
+.post {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: rgba(245, 235, 229, 1);
+}
+
+.main {
+    padding: 10px;
+}
+.item_text {
+    font-family: 'Inter';
+    font-size:  1vw;
+    color: rgba(23, 23, 24, 1);
+    border: none;
+    background-color: inherit;
+}
+.post_img {
+    width: 100%;
+    height: 50%;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.flex {
+    display: flex;
+    justify-content: start;
+}
+.header {
+    font-family: 'Inter' ;
+    margin-bottom: 20px;
+}
+
+.size {
+    font-size: 1em;
+    width: 30%;
+    height: 30%;
+}
+
+.preview {
+    margin-top: 30px;
+    font-family: 'Inter_light';
+}

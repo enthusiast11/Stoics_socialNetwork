@@ -18,7 +18,7 @@ export const editApi = createApi({
         editChanges: builder.mutation({
             query: ({user, userId}: IPostChanges) => ({
                 method: 'PATCH',
-                url: `${userId}/edit`,
+                url: `/${userId}/edit`,
                 body: user,
                 invalidatesTags: ['Users'], 
             }),

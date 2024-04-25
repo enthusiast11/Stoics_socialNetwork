@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../store/'
 
 import styles from '../Profile/profile.module.css'
 import { useNavigate } from 'react-router'
@@ -7,12 +9,16 @@ import { useGetDataQuery } from '../../../../store/slices/user'
 const Profile = () => {
 
 
-    const userId = localStorage.getItem('userId')
+    const userId = useSelector((state: RootState) => state.userId.id);
+    console.log(userId);
+    
     
     const  { data , isLoading, isError, refetch } = useGetDataQuery(userId);
     useEffect(()=>{
         refetch()
     },[data])
+    console.log(data);
+    
 
     
     const [activeTab, setActiveTab] = useState<string>('profile')
@@ -35,12 +41,12 @@ const Profile = () => {
             {isLoading? (
                 <p>Загрузка</p>
             ):(
-                <div className={styles.main}>
+                <div className={styles.container}>
                     <div className={styles.header}>Профиль</div>
                     <div className={styles.profile}>
                         <div className={styles.margin}>
                             <div className={styles.person}>
-                                <img src={data.user.avatar ? `/profile/${userId}/${data.user.avatar}`:'stok.jpeg'}  alt=""  className={styles.photo} />
+                                <img src={data?.user?.avatar ? `/profile/${userId}/${data?.user?.avatar}`:'stok.jpeg'}  alt=""  className={styles.photo} />
                                 <div className={styles.info}>{name}</div>
                                 <div className={styles.subcribtion}>{location}</div>
                             </div>

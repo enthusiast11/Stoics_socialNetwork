@@ -14,7 +14,7 @@
 button {
     cursor: pointer;
 }
-.main {
+.container {
     padding: 10px;
     margin: auto;
     width: 80%;
@@ -109,7 +109,7 @@ button {
     font-size:  2vw;
     color: rgba(23, 23, 24, 1);
     border: none;
-    background-color: rgba(245, 235, 229, 1);
+    background-color: inherit;
 }
 
 .item_img {

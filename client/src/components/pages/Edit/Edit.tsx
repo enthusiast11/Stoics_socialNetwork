@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ChangeEvent } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../store/'
 
 import styles from './edit.module.css'
 import { useNavigate } from 'react-router'
@@ -9,7 +11,7 @@ import { useGetDataQuery } from '../../../store/slices/user'
 
 const Edit = () => {
 
-  const userId: string = localStorage.getItem('userId')!
+  const userId = useSelector((state: RootState) => state.userId.id);
   const [editChanges,{}] = useEditChangesMutation()
 
   const { data , isLoading, isError, refetch } = useGetDataQuery(userId)
