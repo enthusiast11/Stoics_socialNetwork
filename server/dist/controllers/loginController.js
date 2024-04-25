@@ -19,20 +19,19 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const models_1 = require("../models/models");
 const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        ;
-        const { name, email, password } = req.body;
-        const user = yield models_1.User.findOne({ where: { email: email } });
-        if (!user) {
-            return res.status(404).send('пользователь не найден');
-        }
-        ;
         const error = (0, express_validator_1.validationResult)(req);
         if (!error.isEmpty()) {
             return res.status(400).json({ errors: error.array() });
         }
         ;
-        const claim = {
-            name: name,
+        const { email, password } = req.body;
+        const user = yield models_1.User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(404).send('пользователь не найден');
+        }
+        ;
+        const payload = {
+            id: user.dataValues.id,
             email: email,
         };
         const loginPassword = yield bcrypt_1.default.compare(password, user.dataValues.password);
@@ -42,12 +41,16 @@ const loginController = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
             });
         }
         ;
-        const accessToken = jsonwebtoken_1.default.sign(claim, 'secret', {
-            expiresIn: '2d',
+        const accessToken = jsonwebtoken_1.default.sign(payload, process.env.JWT_ACCESS_SECRET_KEY, {
+            expiresIn: "2d"
         });
-        res.status(200).json({
-            message: 'Успешно',
+        console.log(accessToken);
+        const refreshToken = jsonwebtoken_1.default.sign(payload, process.env.JWT_REFRESH_SECRET_KEY, {
+            expiresIn: "30d"
         });
+        res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+        const responseHeaders = Object.assign(Object.assign({}, req.headers), { 'Authorization': `Bearer ${accessToken}` });
+        res.status(200).set(responseHeaders).json(responseHeaders);
     }
     catch (e) {
         res.status(500).json({

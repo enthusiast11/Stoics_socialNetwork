@@ -1,8 +1,7 @@
 import { Router, Request, Response } from "express";
+import loginValidator from "../utils/express-validator/loginValidator";
 
 const LoginRouter = Router();
-LoginRouter.get("/login", (req: Request, res: Response) => {
-    res.send("Login");
-});
+LoginRouter.post("/login", loginValidator, loginValidator);
 
 export default LoginRouter;

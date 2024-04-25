@@ -13,7 +13,7 @@ export const User = sequelize.define("user", {
     defaultValue: ''
   },
   avatar: {
-    type:DataTypes.BLOB('long'),
+    type:DataTypes.STRING,
     defaultValue: null
   },
   location: {
@@ -136,13 +136,32 @@ export const Comment = sequelize.define("comment", {
   },
 });
 
-export const UserRole = sequelize.define("UsersRole", {
+export const UserRole = sequelize.define("UserRole", {
   id: {
       type: DataTypes.BIGINT,
       autoIncrement: true,
       primaryKey: true,
       allowNull: false
     },
+});
+
+export const Token = sequelize.define('token', {
+  id: {
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
+  token: DataTypes.STRING
+})
+
+const UserSubs = sequelize.define('UserSubs', {
+  id: {
+    type: DataTypes.BIGINT,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false
+  },
 });
 
 User.hasMany(Post);
@@ -160,8 +179,22 @@ Message.hasOne(User);
 User.hasMany(Comment);
 Comment.hasOne(User);
 
-User.hasMany(Subcription);
-Subcription.hasOne(User);
-
 User.hasMany(Role);
 Role.belongsToMany(User, {through: UserRole});
+
+User.hasOne(Token)
+Token.belongsTo(User)
+
+User.belongsToMany(User, {
+  through: UserSubs,
+  as: 'Subscribers',
+  foreignKey: 'userId', 
+  otherKey: 'subscriberId' 
+});
+
+User.belongsToMany(User, {
+  through: UserSubs,
+  as: 'Subscriptions',
+  foreignKey: 'subscriberId', 
+  otherKey: 'userId' 
+});

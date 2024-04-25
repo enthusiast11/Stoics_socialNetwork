@@ -1,8 +1,8 @@
 import { Router, Request, Response } from "express";
+import { authValidator } from "../utils/express-validator/authValidator";
+import { authController } from "../controllers/authController";
 
-const JoinRouter = Router();
-JoinRouter.get("/auth", (req: Request, res: Response) => {
-    res.send("auth");
-});
+const AuthRouter = Router();
+AuthRouter.post("/auth", authValidator, authController);
 
-export default JoinRouter;
+export default AuthRouter;

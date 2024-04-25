@@ -19,9 +19,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, cname, email, password } = req.body;
+        console.log(req.body);
+        const { name, email, password } = req.body;
         const error = (0, express_validator_1.validationResult)(req);
         if (!error.isEmpty()) {
+            console.log(error.array());
             return res.status(400).json({ errors: error.array() });
         }
         const getCrypto = (saltRound, password) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,19 +39,24 @@ const authController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
                 yield models_1.User.create({
                     id: id,
                     name: name,
-                    cname: cname,
                     email: email,
                     password: hashPassword,
                 });
-                const claim = {
-                    name: req.body.name,
+                const payload = {
+                    id: id,
                     email: req.body.email
                 };
-                const accessToken = jsonwebtoken_1.default.sign(claim, 'secret', {
+                const accessToken = jsonwebtoken_1.default.sign(payload, process.env.JWT_ACCESS_SECRET_KEY, {
                     expiresIn: "2d"
                 });
+                const refreshToken = jsonwebtoken_1.default.sign(payload, process.env.JWT_REFRESH_SECRET_KEY, {
+                    expiresIn: "30d"
+                });
+                res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
                 req.body.id = id;
-                res.status(200).json(req.body);
+                const responseHeaders = Object.assign(Object.assign({}, req.headers), { 'Authorization': `Bearer ${accessToken}` });
+                yield models_1.Token.create({ id, refreshToken });
+                res.status(200).set(responseHeaders).json(req.body);
             }
             catch (error) {
                 res.status(500).json({
@@ -66,6 +73,7 @@ const authController = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         ;
     }
     catch (e) {
+        console.log(e);
         res.status(500).json({
             error: e,
         });

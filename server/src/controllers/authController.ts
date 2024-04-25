@@ -1,16 +1,20 @@
 import {validationResult } from "express-validator";
 import {Request, Response, NextFunction } from "express";
-import { User } from "../models/models";
+import { Token, User } from "../models/models";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken';
+
 export const authController = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const {name, cname, email, password} = req.body
+    console.log(req.body);
+    const {name, email, password} = req.body
+    
     const error = validationResult(req)
-    if (!error.isEmpty()) {
+     if (!error.isEmpty()) {
+      console.log(error.array());
       
-      return res.status(400).json({ errors: error.array() });
-    }
+       return res.status(400).json({ errors: error.array() });
+     }
     
     const getCrypto = async (saltRound: number, password: string ) => {
       const salt = await bcrypt.genSalt(saltRound);
@@ -27,22 +31,29 @@ export const authController = async (req: Request, res: Response, next: NextFunc
           await User.create({
               id: id,
               name: name,
-              cname: cname,
               email: email,
               password: hashPassword,
           });
 
-          const claim = {
-            name: req.body.name as string,
-            email: req.body.email as string
+          const payload = {
+            id: id,
+            email: req.body.email
           };
           
-          const accessToken = jwt.sign(claim, 'secret', {
+          const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET_KEY!, {
             expiresIn: "2d"
           });
-
+          const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET_KEY!, {
+            expiresIn: "30d"
+          });
+          res.cookie('refreshToken', refreshToken,{httpOnly: true, maxAge: 30 * 24 * 60 * 60 * 1000})
           req.body.id = id
-          res.status(200).json(req.body);
+          const responseHeaders = {
+            ...req.headers,
+            'Authorization': `Bearer ${accessToken}`
+          };
+          await Token.create({id, refreshToken})
+          res.status(200).set(responseHeaders).json(req.body);
       } catch (error) {
           res.status(500).json({
             message:'Ошибка при создании пользователя',
@@ -54,6 +65,8 @@ export const authController = async (req: Request, res: Response, next: NextFunc
       });
     };
   } catch (e) {
+    console.log(e);
+    
     res.status(500).json({
       error: e,
     }); 
